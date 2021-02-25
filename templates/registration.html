@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=1024" name="viewport">
+    <meta content="Simple blog">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Registration</title>
+</head>
+<body>
+    <div class="background-layout">
+        <div class="wrapper">
+            <div class="login-box">
+                <div class="login-box__title">Registration</div>
+                <form class="form" action="/ajax/login/" id="registration_form">
+                    <fieldset class="form__fields">
+                        <div class="form__field">
+                            <label class="form__label" for="">Email</label>
+                            <input class="form__input" type="text">
+                        </div>
+                        <div class="form__field">
+                            <label class="form__label" for="">Username</label>
+                            <input class="form__input" type="text">
+                        </div>
+                        <div class="form__field">
+                            <label class="form__label" for="">Password</label>
+                            <input class="form__input" type="text">
+                        </div>
+                        <div class="form__field">
+                            <label class="form__label" for="">Repeat password</label>
+                            <input class="form__input" type="text">
+                        </div>
+                        <button class="form__button" id="sign-up-button">Sign Up</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

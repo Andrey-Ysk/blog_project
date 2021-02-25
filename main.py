@@ -8,14 +8,14 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/login')
-def login():
-    pass
+@app.route('/signin')
+def signin():
+    return render_template('signin.html')
 
 
-@app.route('/user/<name>')
-def user(name):
-    pass
+@app.route('/registration')
+def registration():
+    return render_template('registration.html')
 
 
 if __name__ == '__main__':

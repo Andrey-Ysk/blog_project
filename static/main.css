@@ -4,8 +4,13 @@ body {
 a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
-
-.grid {
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.wrapper {
     box-sizing: border-box;
     margin: 0 auto;
     min-width: 1024px;
@@ -129,6 +134,7 @@ a:hover, a:visited, a:link, a:active {
     outline:none;
     background-color: #ffffff;
     fill: #bbcdd6;
+    cursor: pointer;
 }
 .post-stats__button:hover {
    fill: #333;
@@ -145,12 +151,6 @@ a:hover, a:visited, a:link, a:active {
     align-items: center;
     margin-left: 15px;
 }
-.post-stats__comment-button:hover svg{
-    fill: #333;
-}
-.post-stats__comment-button:hover span{
-    color: #333;
-}
 .icon-svg__comment-button {
     height: 30px;
     width: 30px;
@@ -160,4 +160,73 @@ a:hover, a:visited, a:link, a:active {
     margin-left: 5px;
     font-weight: bold;
     color: #bbcdd6;
+}
+.post-stats__comment-button:hover .post-stats__comment-icon{
+    fill: #333;
+}
+.post-stats__comment-button:hover .post-stats__comment-text {
+    color: #333;
+}
+.background-layout {
+    background: #f4f4f4;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+.login-box {
+    margin: 0 auto;
+    margin-top: 80px;
+    max-width: 460px;
+    padding: 40px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    background-color: #fff;
+}
+.login-box__title {
+    font-size: 28px;
+    font-weight: bold;
+}
+.form {
+    margin-top: 40px;
+    border: 0;
+    padding: 0;
+}
+.form__fields {
+    border: 0;
+    padding: 0;
+}
+.form__field {
+    padding-bottom: 20px;
+}
+.form__label {
+    margin-bottom: 4px;
+    display: inline-block;
+    width: 100%;
+    vertical-align: baseline;
+    font-weight: 700;
+}
+.form__input {
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    border: 1px solid #DBDBDB;
+    padding: 0 14px;
+    box-sizing: border-box;
+    font-size: 14px;
+    color: #333;
+}
+.form__button {
+    width: 100%;
+    padding: 0;
+    height: 48px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #558cb7;
+    color: #fff;
+    cursor: pointer;
+}
+.form__remind-password {
+    color: #558cb7;
+    display: inline-block;
+    margin-top: 15px;
 }
