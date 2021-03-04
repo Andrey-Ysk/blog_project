@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from wtforms import Form, StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
 
@@ -21,6 +21,7 @@ def signin():
         password = form.password.data
         form.email.data = ''
         form.password.data = ''
+        return redirect(url_for('signin'))
     return render_template('signin.html', form=form, email=email, password=password)
 
 
@@ -40,6 +41,7 @@ def registration():
         form.username.data = ''
         form.password.data = ''
         form.repeat_password.data = ''
+        return redirect(url_for('registration'))
     return render_template('registration.html', form=form, email=email, username=username, password=password, repeat_password=repeat_password)
 
 
