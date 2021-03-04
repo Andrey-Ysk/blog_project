@@ -16,17 +16,18 @@
         <div class="wrapper">
             <div class="login-box">
                 <div class="login-box__title">Log in</div>
-                <form class="form" action="/ajax/login/" id="signin_form">
+                <form class="form" id="signin_form" method="POST">
+                    {{ form.csrf_token }}
                     <fieldset class="form__fields">
                         <div class="form__field">
                             <label class="form__label" for="">Email</label>
-                            <input class="form__input" type="text">
+                            {{ form.email(class="form__input") }}
                         </div>
                         <div class="form__field">
                             <label class="form__label" for="">Password</label>
-                            <input class="form__input" type="text">
+                            {{ form.password(class="form__input") }}
                         </div>
-                        <button class="form__button" id="registration-button">Log in</button>
+                        {{ form.submit(class="form__button") }}
                         <a class="form__remind-password" id="remind-password" href="">Forgot password?</a>
                     </fieldset>
                 </form>

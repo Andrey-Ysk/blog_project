@@ -16,25 +16,26 @@
         <div class="wrapper">
             <div class="login-box">
                 <div class="login-box__title">Registration</div>
-                <form class="form" action="/ajax/login/" id="registration_form">
+                <form class="form" id="registration_form" method="POST">
+                    {{ form.csrf_token }}
                     <fieldset class="form__fields">
                         <div class="form__field">
                             <label class="form__label" for="">Email</label>
-                            <input class="form__input" type="text">
+                            {{ form.email(class="form__input") }}
                         </div>
                         <div class="form__field">
                             <label class="form__label" for="">Username</label>
-                            <input class="form__input" type="text">
+                            {{ form.username(class="form__input") }}
                         </div>
                         <div class="form__field">
                             <label class="form__label" for="">Password</label>
-                            <input class="form__input" type="text">
+                            {{ form.password(class="form__input") }}
                         </div>
                         <div class="form__field">
                             <label class="form__label" for="">Repeat password</label>
-                            <input class="form__input" type="text">
+                            {{ form.repeat_password(class="form__input") }}
                         </div>
-                        <button class="form__button" id="sign-up-button">Sign Up</button>
+                         {{ form.submit(class="form__button") }}
                     </fieldset>
                 </form>
             </div>
