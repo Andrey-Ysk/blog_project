@@ -21,8 +21,6 @@ app.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig
 
 db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate(app, db, render_as_batch=True)
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
 
 
 from . import views
