@@ -2,7 +2,19 @@ from flask import Flask, render_template, request, redirect, url_for
 from wtforms import Form, StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 import os
+
+
+naming_convention = {
+    "ix": 'ix_%(column_0_label)s',
+    "uq": "uq_%(table_name)s_%(column_0_name)s",
+    "ck": "ck_%(table_name)s_%(column_0_name)s",
+    "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
+    "pk": "pk_%(table_name)s"
+}
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -13,7 +25,10 @@ app.config['SECRET_KEY'] = '62wtyds6t36qf48u4h3256'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
+manager = Manager(app)
+migrate = Migrate(app, db, render_as_batch=True)
+manager.add_command('db', MigrateCommand)
 
 
 class Role(db.Model):
@@ -30,6 +45,7 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
+    email = db.Column(db.String(64), unique=True)
     password = db.Column(db.String(64))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
     posts = db.relationship('Post', backref='user')
@@ -142,4 +158,5 @@ class RegistrationForm(Form):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
+    manager.run()
+    # app.run(host='0.0.0.0', debug=True)
