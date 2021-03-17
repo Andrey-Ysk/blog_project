@@ -48,6 +48,7 @@ class Post(db.Model):
     title = db.Column(db.String(64))
     rating = db.Column(db.Integer)
     comments = db.relationship('Comment', backref='post')
+    users = db.relationship('User', secondary='posts_rating', backref='post')
 
     def __repr__(self):
         return '<Post %r>' % self.title
@@ -65,10 +66,10 @@ class Comment(db.Model):
         return '<Comment %r' % self.text
 
 
-# PostRating = db.Table('posts_rating',
-#     db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
-#     db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
-# )
+PostRating = db.Table('posts_rating',
+    db.Column('post_id', db.Integer, db.ForeignKey('posts.id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'))
+)
 
 
 @app.route('/')
