@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=1024" name="viewport">
+    <meta content="Simple blog">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>----- Placeholder -----</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="grid">
+            {% include 'header.html' %}
+            <div class="post">
+                <h3 class="post__title">Title post</h3>
+                <span class="post__info">12:21 01.01.21 | admin ----- Placeholder -----</span>
+                <p class="post__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur
+                    cum
+                    cumque deserunt dignissimos, eveniet fuga ipsam magni natus nemo pariatur quas quos repellat sit
+                    soluta tempora ut voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur
+                    cum
+                    cumque deserunt dignissimos, eveniet fuga ipsam magni natus nemo pariatur quas quos repellat sit
+                    soluta tempora ut voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur
+                    cum
+                    cumque deserunt dignissimos, eveniet fuga ipsam magni natus nemo pariatur quas quos repellat sit
+                    soluta tempora ut voluptas?
+                </p>
+                <ul class="post-stats">
+                    <li class="post-stats__rating">
+                        <button class="post-stats__button post-stats__vote-up">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
+                                 xml:space="preserve">
+                                <g>
+                                    <g>
+                                        <polygon
+                                            points="225.813,48.907 128,146.72 30.187,48.907 0,79.093 128,207.093 256,79.093 		"/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                        <span class="post-stats__rating-counter">+4</span>
+                        <button class="post-stats__button post-stats__rating-vote-down">
+                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
+                                 xml:space="preserve">
+                                <g>
+                                    <g>
+                                        <polygon
+                                            points="225.813,48.907 128,146.72 30.187,48.907 0,79.093 128,207.093 256,79.093 		"/>
+                                    </g>
+                                </g>
+                            </svg>
+                        </button>
+                    </li>
+                </ul>
+                <div class="comments">
+                    <span class="comments__head-title">Comments</span>
+                    <div class="comments__item">
+                        <div class="comments_title">
+                            <span class="comments__username">User_1</span>
+                            <span class="comments__date">  24:47  01.01.1994</span>
+                        </div>
+                        <p class="comments__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
+                            magni maxime modi nobis omnis repellat sequi suscipit. Autem ducimus, ea illum minus neque
+                            soluta? Consectetur fugiat iusto nobis possimus sed!
+                        </p>
+                    </div>
+                    <div class="comments__item">
+                        <div class="comments_title">
+                            <span class="comments__username">User_1</span>
+                            <span class="comments__date">  24:26  01.01.1994</span>
+                        </div>
+                        <p class="comments__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
+                            magni maxime modi nobis omnis repellat sequi suscipit. Autem ducimus, ea illum minus neque
+                            soluta? Consectetur fugiat iusto nobis possimus sed!
+                        </p>
+                    </div>
+                    <div class="comments__add">
+                        <form class="form" id="comment_form" method="POST">
+                            {{ form.csrf_token }}
+                            <fieldset class="form-comment">
+                                {{ form.comment_text(class="form-comment__textarea")  }}
+                                {{ form.submit(class="form-comment__send") }}
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

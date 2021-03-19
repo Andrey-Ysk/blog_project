@@ -4,6 +4,9 @@ body {
 a:hover, a:visited, a:link, a:active {
     text-decoration: none;
 }
+p {
+    margin: 0;
+}
 html, body {
     width: 100%;
     height: 100%;
@@ -102,7 +105,7 @@ html, body {
     color: #a4afba;
 }
 .post__text {
-    margin: 10px 0;
+    padding: 10px 0;
 }
 .post__read-more {
     display: inline-block;
@@ -230,6 +233,37 @@ html, body {
     display: inline-block;
     margin-top: 15px;
 }
+.form-comment {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+.form-comment__textarea {
+    height: 70px;
+    min-height: 70px;
+    position: relative;
+    z-index: 0;
+    overflow: auto;
+    box-sizing: border-box;
+    padding: 10px 10px 0;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    color: #000;
+    vertical-align: top;
+    resize: vertical;
+}
+.form-comment__send {
+    border: 0;
+    margin-top: 10px;
+    width: 120px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #558cb7;
+    color: #fff;
+    cursor: pointer;
+
+}
 .error {
     max-width: 420px;
     margin: 0 auto;
@@ -247,4 +281,33 @@ html, body {
     background-color: #f4f4f4;
     border-radius: 4px;
     text-decoration: none;
+}
+.comments {
+    padding-top: 20px;
+}
+.comments__head-title {
+    display: block;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.comments__item {
+    margin-bottom: 25px;
+    border: 1px solid #a4afba;
+    border-radius: 4px;
+}
+.comments_title {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #DBDBDB;
+}
+.comments__username {
+    color: #333333;
+    font-weight: bold;
+}
+.comments__date {
+    font-style: italic;
+    white-space: pre;
+}
+.comments__text {
+    padding: 5px;
 }

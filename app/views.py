@@ -1,12 +1,26 @@
 from app import app
 from flask import render_template, request, redirect, url_for, make_response, session
-from .forms import SignInForm, RegistrationForm
+from .forms import SignInForm, RegistrationForm, CommentForm
 from .models import Role, User, Post, Comment, PostRating
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/post/<post_id>', methods=['GET', 'POST'])
+def post_full(post_id):
+    comment_text = None
+    form = CommentForm(request.form)
+
+    if form.validate():
+        comment_text = form.comment_text.data
+        return redirect(url_for('post_full'))
+
+    form.comment_text.data = ''
+
+    return render_template('post_full.html', form=form, comment_text=comment_text)
 
 
 @app.route('/signin', methods=['GET', 'POST'])
