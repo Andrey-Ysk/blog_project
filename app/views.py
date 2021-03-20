@@ -2,11 +2,20 @@ from app import app
 from flask import render_template, request, redirect, url_for, make_response, session
 from .forms import SignInForm, RegistrationForm, CommentForm
 from .models import Role, User, Post, Comment, PostRating
+from flask_login import login_required, login_user, current_user, logout_user
+from app import db
 
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.route('/post/<post_id>', methods=['GET', 'POST'])
@@ -30,8 +39,11 @@ def signin():
     form = SignInForm(request.form)
 
     if form.validate():
-        email = form.email.data
-        password = form.password.data
+        email = db.session.query(User).filter(User.email == form.email.data).first()
+        if email and email.check_password(form.password.data):
+            login_user(email)
+            return redirect(url_for('index'))
+
         return redirect(url_for('signin'))
 
     form.email.data = ''

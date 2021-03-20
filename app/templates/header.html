@@ -25,7 +25,12 @@
         </a>
     </div>
     <div class="login">
+        {% if current_user.is_authenticated %}
+        <span class="login__username">{{ current_user.username }}</span>
+        <a href="{{ url_for('logout') }}" class="login__button login__logout">Log-out</a>
+        {% else %}
         <a href="/signin" class="login__button login__sign-in">Sign-In</a>
         <a href="/registration" class="login__button login__registration">Registration</a>
+        {% endif %}
     </div>
 </div>

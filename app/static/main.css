@@ -92,6 +92,16 @@ html, body {
 .login__registration:hover {
     background-color: #548eaa;
 }
+.login__username {
+    padding: 0 15px;
+    font-size: 18px;
+    line-height: 36px;
+}
+.login__logout {
+    font-size: 18px;
+    color: #a4afba;
+    border-color: #000;
+}
 .post {
     margin: 60px 0;
 }
@@ -311,3 +321,5 @@ html, body {
 .comments__text {
     padding: 5px;
 }
+
+/* TODO: refactoring css */
