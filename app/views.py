@@ -34,22 +34,23 @@ def post_full(post_id):
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
-    email = None
+    username = None
     password = None
     form = SignInForm(request.form)
 
     if form.validate():
-        email = db.session.query(User).filter(User.email == form.email.data).first()
-        if email and email.check_password(form.password.data):
-            login_user(email)
+        username = db.session.query(User).filter(User.username == form.username.data).first()
+        if username and username.check_password(form.password.data):
+            login_user(username)
             return redirect(url_for('index'))
 
         return redirect(url_for('signin'))
 
-    form.email.data = ''
+    form.username.data = ''
     form.password.data = ''
-
-    return render_template('signin.html', form=form, email=email, password=password)
+    #TODO: flash error signin
+    #TODO: validate data
+    return render_template('signin.html', form=form, username=username, password=password)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
@@ -60,11 +61,26 @@ def registration():
     repeat_password = None
     form = RegistrationForm(request.form)
 
+    # TODO: validate data
+
     if form.validate():
-        email = form.email.data
-        username = form.username.data
-        password = form.password.data
-        repeat_password = form.repeat_password.data
+        if password != repeat_password:
+            pass
+            #TODO: flash error
+
+        if db.session.query(User).filter(User.email == form.email.data).first():
+            pass
+            #TODO: flash error
+
+        if db.session.query(User).filter(User.username == form.username.data).first():
+            pass
+            #TODO: flash error
+
+        new_user = User(email=form.email.data, username=form.username.data)
+        new_user.set_password(form.password.data)
+        db.session.add(new_user)
+        db.session.commit()
+
         return redirect(url_for('registration'))
 
     form.email.data = ''

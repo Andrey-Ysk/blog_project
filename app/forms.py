@@ -4,7 +4,7 @@ from wtforms.widgets import TextArea
 
 
 class SignInForm(Form):
-    email = StringField('email', validators=[Email()])
+    username = StringField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('Log In')
 
