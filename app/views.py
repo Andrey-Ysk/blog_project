@@ -69,6 +69,14 @@ def registration():
             flash('Your password and repeat password do not match')
             return redirect(url_for('registration'))
 
+        if len(form.password.data) < 8:
+            flash('Password must be of minimum 8 characters length')
+            return redirect(url_for('registration'))
+
+        if len(form.username.data) < 4:
+            flash('Username must be of minimum 4 characters length')
+            return redirect(url_for('registration'))
+
         if db.session.query(User).filter(User.email == form.email.data).first():
             flash('This email already taken')
             return redirect(url_for('registration'))
