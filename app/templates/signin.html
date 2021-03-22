@@ -1,38 +1,26 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=1024" name="viewport">
-    <meta content="Simple blog">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/normalize.css">
-    <link rel="stylesheet" href="/static/main.css">
-    <title>Sign In</title>
-</head>
-<body>
-    <div class="background-layout">
-        <div class="wrapper">
-            <div class="login-box">
-                <div class="login-box__title">Log in</div>
-                <form class="form" id="signin_form" method="POST">
-                    {{ form.csrf_token }}
-                    <fieldset class="form__fields">
-                        <div class="form__field">
-                            <label class="form__label" for="">Username</label>
-                            {{ form.username(class="form__input") }}
-                        </div>
-                        <div class="form__field">
-                            <label class="form__label" for="">Password</label>
-                            {{ form.password(class="form__input") }}
-                        </div>
-                        {{ form.submit(class="form__button") }}
-                        <a class="form__remind-password" id="remind-password" href="">Forgot password?</a>
-                    </fieldset>
-                </form>
-            </div>
+{% extends "base.html" %}
+{% block title %}Sign-In{% endblock %}
+{% block content %}
+<div class="background-layout">
+    <div class="wrapper">
+        <div class="login-box">
+            <div class="login-box__title">Log in</div>
+            <form class="form" id="signin_form" method="POST">
+                {{ form.csrf_token }}
+                <fieldset class="form__fields">
+                    <div class="form__field">
+                        <label class="form__label" for="">Username</label>
+                        {{ form.username(class="form__input") }}
+                    </div>
+                    <div class="form__field">
+                        <label class="form__label" for="">Password</label>
+                        {{ form.password(class="form__input") }}
+                    </div>
+                    {{ form.submit(class="form__button") }}
+                    <a class="form__remind-password" id="remind-password" href="">Forgot password?</a>
+                </fieldset>
+            </form>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

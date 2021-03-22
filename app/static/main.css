@@ -276,6 +276,7 @@ html, body {
 .error__title {
     font-size: 34px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 .error__link {
     padding: 10px;

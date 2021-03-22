@@ -1,23 +1,62 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta content="width=1024" name="viewport">
-    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
-    <meta content="Simple blog">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,200&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/static/normalize.css">
-    <link rel="stylesheet" href="/static/main.css">
-    <title>BLOG</title>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="grid">
-            {% include 'header.html' %}
-            {% include 'posts.html' %}
+{% extends "base.html" %}
+{% block title %}Blog{% endblock %}
+{% block content %}
+<div class="wrapper">
+    {% include "header.html" %}
+    <div class="posts">
+        {% for post in all_posts %}
+        <div class="post">
+            <a href="{{ url_for('post_full', post_id=post.id) }}">
+                <h3 class="post__title">{{ post.title }}</h3>
+            </a>
+            <span class="post__info">{{ post.timestamp }} | {{ post.user.username }}</span>
+            <p class="post__text">{{ post.content }}</p>
+            <ul class="post-stats">
+                <li class="post-stats__rating">
+                    <button class="post-stats__button post-stats__vote-up">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                             viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
+                             xml:space="preserve">
+                        <g>
+                            <g>
+                                <polygon
+                                        points="225.813,48.907 128,146.72 30.187,48.907 0,79.093 128,207.093 256,79.093 		"/>
+                            </g>
+                        </g>
+                    </svg>
+                    </button>
+                    <span class="post-stats__rating-counter">{{ post.rating }}</span>
+                    <button class="post-stats__button post-stats__rating-vote-down">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                             viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
+                             xml:space="preserve">
+                        <g>
+                            <g>
+                                <polygon
+                                        points="225.813,48.907 128,146.72 30.187,48.907 0,79.093 128,207.093 256,79.093 		"/>
+                            </g>
+                        </g>
+                    </svg>
+                    </button>
+                </li>
+                <li class="post-stats__comment">
+                    <a class="post-stats__comment-button"
+                       href="{{ url_for('post_full', post_id=post.id) + '#comments'}}">
+                        <svg class="icon-svg__comment-button post-stats__comment-icon" height="682pt"
+                             viewBox="-21 -47 682.66669 682" width="682pt"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="m552.011719-1.332031h-464.023438c-48.515625 0-87.988281 39.464843-87.988281 87.988281v283.972656c0 48.414063 39.300781 87.816406 87.675781 87.988282v128.863281l185.191407-128.863281h279.144531c48.515625 0 87.988281-39.472657 87.988281-87.988282v-283.972656c0-48.523438-39.472656-87.988281-87.988281-87.988281zm50.488281 371.960937c0 27.835938-22.648438 50.488282-50.488281 50.488282h-290.910157l-135.925781 94.585937v-94.585937h-37.1875c-27.839843 0-50.488281-22.652344-50.488281-50.488282v-283.972656c0-27.84375 22.648438-50.488281 50.488281-50.488281h464.023438c27.839843 0 50.488281 22.644531 50.488281 50.488281zm0 0"/>
+                            <path d="m171.292969 131.171875h297.414062v37.5h-297.414062zm0 0"/>
+                            <path d="m171.292969 211.171875h297.414062v37.5h-297.414062zm0 0"/>
+                            <path d="m171.292969 291.171875h297.414062v37.5h-297.414062zm0 0"/>
+                        </svg>
+                        <span class="post-stats__comment-text">Comment</span>
+                    </a>
+                </li>
+            </ul>
+            <hr>
         </div>
+        {% endfor %}
     </div>
-</body>
-</html>
+</div>
+{% endblock %}
