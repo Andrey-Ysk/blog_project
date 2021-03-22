@@ -14,6 +14,7 @@ form {
 fieldset {
     border: 0;
     padding: 0;
+    margin: 0;
 }
 ul {
     padding: 0;
@@ -236,11 +237,6 @@ html, body {
     display: inline-block;
     margin-top: 15px;
 }
-.form-comment {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
 .form-comment__textarea {
     height: 70px;
     min-height: 70px;
@@ -265,7 +261,6 @@ html, body {
     background-color: #558cb7;
     color: #fff;
     cursor: pointer;
-
 }
 .error {
     max-width: 420px;
