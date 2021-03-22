@@ -5,6 +5,7 @@ from flask_script import Manager, Command, Shell
 from sqlalchemy import MetaData
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
+from flask_moment import Moment
 import os, config
 
 
@@ -26,5 +27,6 @@ db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate(app, db, render_as_batch=True)
 login_manager = LoginManager(app)
 login_manager.login_view = 'signin'
+moment = Moment(app)
 
 from . import views

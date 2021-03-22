@@ -8,7 +8,8 @@ from app import db
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    all_posts = Post.query.all()
+    return render_template('index.html', all_posts=all_posts)
 
 
 @app.route('/logout')
@@ -18,9 +19,10 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/post/<post_id>', methods=['GET', 'POST'])
+@app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post_full(post_id):
     comment_text = None
+    post = Post.query.all()[post_id - 1]
     form = CommentForm(request.form)
 
     if form.validate():
@@ -29,7 +31,7 @@ def post_full(post_id):
 
     form.comment_text.data = ''
 
-    return render_template('post_full.html', form=form, comment_text=comment_text)
+    return render_template('post_full.html', form=form, comment_text=comment_text, post=post)
 
 
 @app.route('/signin', methods=['GET', 'POST'])

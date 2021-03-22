@@ -16,19 +16,9 @@
         <div class="grid">
             {% include 'header.html' %}
             <div class="post">
-                <h3 class="post__title">Title post</h3>
-                <span class="post__info">12:21 01.01.21 | admin ----- Placeholder -----</span>
-                <p class="post__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur
-                    cum
-                    cumque deserunt dignissimos, eveniet fuga ipsam magni natus nemo pariatur quas quos repellat sit
-                    soluta tempora ut voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur
-                    cum
-                    cumque deserunt dignissimos, eveniet fuga ipsam magni natus nemo pariatur quas quos repellat sit
-                    soluta tempora ut voluptas? Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aspernatur
-                    cum
-                    cumque deserunt dignissimos, eveniet fuga ipsam magni natus nemo pariatur quas quos repellat sit
-                    soluta tempora ut voluptas?
-                </p>
+                <h3 class="post__title">{{ post.title }}</h3>
+                <span class="post__info">{{ post.timestamp }} | {{ post.user.username }}</span>
+                <p class="post__text">{{ post.content }}</p>
                 <ul class="post-stats">
                     <li class="post-stats__rating">
                         <button class="post-stats__button post-stats__vote-up">
@@ -43,7 +33,7 @@
                                 </g>
                             </svg>
                         </button>
-                        <span class="post-stats__rating-counter">+4</span>
+                        <span class="post-stats__rating-counter">{{ post.rating }}</span>
                         <button class="post-stats__button post-stats__rating-vote-down">
                             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                  viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
@@ -59,6 +49,7 @@
                     </li>
                 </ul>
                 <div class="comments">
+                    <a href="comments"></a>
                     <span class="comments__head-title">Comments</span>
                     <div class="comments__item">
                         <div class="comments_title">

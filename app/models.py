@@ -2,6 +2,7 @@ from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin
 from app import login_manager
+from datetime import datetime
 
 
 class Role(db.Model):
@@ -44,7 +45,7 @@ class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.Text)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    date = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     title = db.Column(db.String(64))
     rating = db.Column(db.Integer)
     comments = db.relationship('Comment', backref='post')
