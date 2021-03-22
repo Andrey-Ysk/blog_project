@@ -199,6 +199,10 @@ html, body {
     font-size: 28px;
     font-weight: bold;
 }
+.login-box__flash {
+    margin-top: 20px;
+    color: #b10000;
+}
 .form {
     margin-top: 40px;
 }
@@ -310,5 +314,3 @@ html, body {
 .comments__text {
     padding: 5px;
 }
-
-/* TODO: refactoring css */

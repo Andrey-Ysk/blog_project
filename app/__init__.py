@@ -26,6 +26,7 @@ app.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig
 db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate(app, db, render_as_batch=True)
 login_manager = LoginManager(app)
+login_manager.session_protection = 'strong'
 login_manager.login_view = 'signin'
 moment = Moment(app)
 

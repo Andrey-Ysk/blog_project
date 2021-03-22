@@ -5,6 +5,9 @@
     <div class="wrapper">
         <div class="login-box">
             <div class="login-box__title">Log in</div>
+            {% for message in get_flashed_messages() %}
+            <p class="login-box__flash">{{ message }}</p>
+            {% endfor %}
             <form class="form" id="signin_form" method="POST">
                 {{ form.csrf_token }}
                 <fieldset class="form__fields">

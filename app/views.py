@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, url_for, make_response, session
+from flask import render_template, request, redirect, url_for, make_response, session, flash
 from .forms import SignInForm, RegistrationForm, CommentForm
 from .models import Role, User, Post, Comment, PostRating
 from flask_login import login_required, login_user, current_user, logout_user
@@ -36,8 +36,7 @@ def post_full(post_id):
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
-    username = None
-    password = None
+
     form = SignInForm(request.form)
 
     if form.validate():
@@ -46,51 +45,51 @@ def signin():
             login_user(username)
             return redirect(url_for('index'))
 
+        else:
+            flash('You have entered incorrect username or password')
+
         return redirect(url_for('signin'))
 
     form.username.data = ''
     form.password.data = ''
-    #TODO: flash error signin
+
     #TODO: validate data
-    return render_template('signin.html', form=form, username=username, password=password)
+
+    return render_template('signin.html', form=form)
 
 
 @app.route('/registration', methods=['GET', 'POST'])
 def registration():
-    email = None
-    username = None
-    password = None
-    repeat_password = None
     form = RegistrationForm(request.form)
 
     # TODO: validate data
 
     if form.validate():
-        if password != repeat_password:
-            pass
-            #TODO: flash error
+        if form.password.data != form.repeat_password.data:
+            flash('Your password and repeat password do not match')
+            return redirect(url_for('registration'))
 
         if db.session.query(User).filter(User.email == form.email.data).first():
-            pass
-            #TODO: flash error
+            flash('This email already taken')
+            return redirect(url_for('registration'))
 
         if db.session.query(User).filter(User.username == form.username.data).first():
-            pass
-            #TODO: flash error
+            flash('This username already taken')
+            return redirect(url_for('registration'))
 
         new_user = User(email=form.email.data, username=form.username.data)
         new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for('registration'))
+        return redirect(url_for('index'))
 
     form.email.data = ''
     form.username.data = ''
     form.password.data = ''
     form.repeat_password.data = ''
 
-    return render_template('registration.html', form=form, email=email, username=username, password=password, repeat_password=repeat_password)
+    return render_template('registration.html', form=form)
 
 
 @app.errorhandler(404)
