@@ -26,13 +26,18 @@ def post_full(post_id):
     form = CommentForm(request.form)
 
     if form.validate():
-        comment_text = form.comment_text.data
-        return redirect(url_for('post_full'))
+        new_comment = Comment(user_id=current_user.id, post_id=post_id, text=form.comment_text.data)
+        db.session.add(new_comment)
+        db.session.commit()
+        form.comment_text.data = ''
+
+        return redirect(url_for('post_full', post_id=post_id))
 
     form.comment_text.data = ''
 
     return render_template('post_full.html', form=form, post=post, comments_list=comments_list)
 
+    #TODO: validate data
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
