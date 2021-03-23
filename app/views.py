@@ -8,7 +8,7 @@ from app import db
 
 @app.route('/')
 def index():
-    all_posts = Post.query.all()
+    all_posts = Post.query.all()[::-1]
     return render_template('index.html', all_posts=all_posts)
 
 
