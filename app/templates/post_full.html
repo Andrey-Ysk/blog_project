@@ -39,26 +39,16 @@
         <div class="comments">
             <a href="comments"></a>
             <span class="comments__head-title">Comments</span>
+            {% for comment in comments_list %}
             <div class="comments__item">
                 <div class="comments_title">
-                    <span class="comments__username">User_1</span>
-                    <span class="comments__date">  24:47  01.01.1994</span>
+                    <span class="comments__username">{{ comment.user.username }}</span>
+                    <span class="comments__date">  {{ moment(comment.timestamp).format('LLL') }}</span>
                 </div>
-                <p class="comments__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
-                    magni maxime modi nobis omnis repellat sequi suscipit. Autem ducimus, ea illum minus neque
-                    soluta? Consectetur fugiat iusto nobis possimus sed!
-                </p>
+                <p class="comments__text">{{ comment.text }}</p>
             </div>
-            <div class="comments__item">
-                <div class="comments_title">
-                    <span class="comments__username">User_1</span>
-                    <span class="comments__date">  24:26  01.01.1994</span>
-                </div>
-                <p class="comments__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio
-                    magni maxime modi nobis omnis repellat sequi suscipit. Autem ducimus, ea illum minus neque
-                    soluta? Consectetur fugiat iusto nobis possimus sed!
-                </p>
-            </div>
+            {% endfor %}
+            {% if current_user.is_authenticated %}
             <div class="comments__add">
                 <form class="form" id="comment_form" method="POST">
                     {{ form.csrf_token }}
@@ -68,6 +58,7 @@
                     </fieldset>
                 </form>
             </div>
+            {% endif %}
         </div>
     </div>
 </div>

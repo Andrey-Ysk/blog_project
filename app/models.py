@@ -52,19 +52,19 @@ class Post(db.Model):
     users = db.relationship('User', secondary='posts_rating', backref='post')
 
     def __repr__(self):
-        return '<Post %r>' % self.title
+        return '<Post %r>' % self.id
 
 
 class Comment(db.Model):
     __tablename__ = 'comments'
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(256))
-    date = db.Column(db.DateTime)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __repr__(self):
-        return '<Comment %r' % self.text
+        return '<Comment %r>' % self.id
 
 
 PostRating = db.Table('posts_rating',

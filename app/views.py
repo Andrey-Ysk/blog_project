@@ -21,8 +21,8 @@ def logout():
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post_full(post_id):
-    comment_text = None
     post = Post.query.all()[post_id - 1]
+    comments_list = Comment.query.filter_by(post_id=post_id).all()
     form = CommentForm(request.form)
 
     if form.validate():
@@ -31,7 +31,7 @@ def post_full(post_id):
 
     form.comment_text.data = ''
 
-    return render_template('post_full.html', form=form, comment_text=comment_text, post=post)
+    return render_template('post_full.html', form=form, post=post, comments_list=comments_list)
 
 
 @app.route('/signin', methods=['GET', 'POST'])
@@ -63,6 +63,7 @@ def registration():
     form = RegistrationForm(request.form)
 
     # TODO: validate data
+    # TODO: if refactoring
 
     if form.validate():
         if form.password.data != form.repeat_password.data:
