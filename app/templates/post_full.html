@@ -9,7 +9,7 @@
         <p class="post__text">{{ post.content }}</p>
         <ul class="post-stats">
             <li class="post-stats__rating">
-                <button class="post-stats__button post-stats__vote-up">
+                <button id="rating_vote_up" class="post-stats__button post-stats__vote-up">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                          viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
                          xml:space="preserve">
@@ -21,8 +21,8 @@
                         </g>
                     </svg>
                 </button>
-                <span class="post-stats__rating-counter">{{ post.rating }}</span>
-                <button class="post-stats__button post-stats__rating-vote-down">
+                <span class="post-stats__rating-counter" id="rating-counter">{{ post.rating }}</span>
+                <button id="rating_vote_down" class="post-stats__button post-stats__rating-vote-down">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                          viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
                          xml:space="preserve">
@@ -36,6 +36,7 @@
                 </button>
             </li>
         </ul>
+        <p class="post__alert" id="post-alert"></p>
         <div class="comments">
             <a href="comments"></a>
             <span class="comments__head-title">Comments</span>

@@ -1,5 +1,5 @@
 from app import app
-from flask import render_template, request, redirect, url_for, make_response, session, flash
+from flask import render_template, request, redirect, url_for, make_response, session, flash, jsonify
 from .forms import SignInForm, RegistrationForm, CommentForm
 from .models import Role, User, Post, Comment, PostRating
 from flask_login import login_required, login_user, current_user, logout_user
@@ -21,7 +21,8 @@ def logout():
 
 @app.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post_full(post_id):
-    post = Post.query.all()[post_id - 1]
+    session['post_id'] = post_id
+    post = Post.query.filter(Post.id == post_id).first()
     comments_list = Comment.query.filter_by(post_id=post_id).all()
     form = CommentForm(request.form)
 
@@ -38,6 +39,45 @@ def post_full(post_id):
     return render_template('post_full.html', form=form, post=post, comments_list=comments_list)
 
     #TODO: validate data
+
+
+@app.route('/post_full_vote')
+def post_full_vote():
+
+    if not current_user.is_authenticated:
+        return jsonify(alert = 'You need login for rate this post')
+
+    post_id = session.get('post_id')
+    user_vote_exist = db.session.query(PostRating).filter(PostRating.c.user_id == current_user.id,PostRating.c.post_id == post_id).all()
+    vote = request.args.get('vote')
+    current_post_query = Post.query.filter(Post.id == post_id)
+    current_post = current_post_query.first()
+    user = User.query.filter(User.id == current_user.id).first()
+
+    if not user_vote_exist:
+
+        if vote == 'up':
+            current_post_query.update({'rating': Post.rating + 1})
+            current_post.users.append(user)
+            db.session.add(current_post)
+            db.session.commit()
+            return jsonify(rating = current_post.rating)
+
+        if vote == 'down':
+            current_post_query.update({'rating': Post.rating - 1})
+            current_post.users.append(user)
+            db.session.add(current_post)
+            db.session.commit()
+            return jsonify(rating = current_post.rating)
+
+
+
+    else:
+        return jsonify(alert = 'You already rate this post')
+
+
+    return ('nothing')
+
 
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
