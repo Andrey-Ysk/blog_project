@@ -113,6 +113,10 @@ html, body {
 .login__logout {
     font-size: 18px;
     color: #a4afba;
+    border: 1px solid #a4afba;
+    border-radius: 4px;
+}
+.login__logout:hover {
     border-color: #000;
 }
 .post {
