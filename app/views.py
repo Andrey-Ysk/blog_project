@@ -48,11 +48,12 @@ def post_full_vote():
         return jsonify(alert = 'You need login for rate this post')
 
     post_id = session.get('post_id')
-    user_vote_exist = db.session.query(PostRating).filter(PostRating.c.user_id == current_user.id,PostRating.c.post_id == post_id).all()
+    user_vote_exist = db.session.query(PostRating).filter(PostRating.c.user_id == current_user.id,
+                                                          PostRating.c.post_id == post_id).all()
     vote = request.args.get('vote')
     current_post_query = Post.query.filter(Post.id == post_id)
     current_post = current_post_query.first()
-    user = User.query.filter(User.id == current_user.id).first()
+    user = User.query.get(current_user.id)
 
     if not user_vote_exist:
 
@@ -74,9 +75,6 @@ def post_full_vote():
 
     else:
         return jsonify(alert = 'You already rate this post')
-
-
-    return ('nothing')
 
 
 @app.route('/signin', methods=['GET', 'POST'])
