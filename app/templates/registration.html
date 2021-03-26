@@ -6,7 +6,7 @@
         <div class="login-box">
             <div class="login-box__title">Registration</div>
             {% for message in get_flashed_messages() %}
-            <p class="login-box__flash">{{ message }}</p>
+            <p class="login-box__alert">{{ message }}</p>
             {% endfor %}
             <form class="form" id="registration_form" method="POST">
                 {{ form.csrf_token }}
