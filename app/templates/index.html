@@ -4,7 +4,7 @@
 <div class="wrapper">
     {% include "header.html" %}
     <div class="posts">
-        {% for post in all_posts %}
+        {% for post in posts.items %}
         <div class="post">
             <a href="{{ url_for('post_full', post_id=post.id) }}">
                 <h3 class="post__title">{{ post.title }}</h3>
@@ -47,5 +47,11 @@
         </div>
         {% endfor %}
     </div>
+    <nav>
+        <ul class="post-pagination">
+            <li class="post-pagination__item"><a class="post-pagination__link {{'post-pagination__link_disabled' if not posts.has_prev}}" href="{{ url_for('index', page=posts.prev_num) }}">Prev</a></li>
+            <li class="post-pagination__item"><a class="post-pagination__link {{'post-pagination__link_disabled' if not posts.has_next}}" href="{{ url_for('index', page=posts.next_num) }}">Next</a></li>
+        </ul>
+    </nav>
 </div>
 {% endblock %}

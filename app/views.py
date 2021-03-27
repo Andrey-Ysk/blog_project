@@ -6,10 +6,12 @@ from flask_login import login_required, login_user, current_user, logout_user
 from app import db
 
 
-@app.route('/')
-def index():
-    all_posts = Post.query.all()[::-1]
-    return render_template('index.html', all_posts=all_posts)
+@app.route('/', methods=['GET'], defaults={"page": 1})
+@app.route('/<int:page>', methods=['GET'])
+def index(page):
+    per_page = 10
+    posts = Post.query.paginate(page, per_page, error_out=False)
+    return render_template('index.html', posts=posts)
 
 
 @app.route('/logout')

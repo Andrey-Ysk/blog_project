@@ -19,6 +19,7 @@ fieldset {
 ul {
     padding: 0;
     margin: 0;
+    list-style-type: none
 }
 html, body {
     width: 100%;
@@ -202,6 +203,31 @@ h1, h2, h3 , h4 {
 .post__alert {
     margin-top: 10px;
     color: #b10000;
+}
+.post-pagination {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+}
+.post-pagination__list {
+    display: flex;
+}
+.post-pagination__item {
+    margin: 0 15px;
+}
+.post-pagination__link {
+    padding: 7px 15px;
+    color: #ffffff;
+    background-color: #65a3be;
+    border: 1px solid #a4afba;
+    border-radius: 5px;
+    font-size: 18px;
+}
+.post-pagination__link:hover {
+    background-color: #548eaa;
+}
+.post-pagination__link_disabled {
+    display: none;
 }
 .background-layout {
     background: #f4f4f4;
