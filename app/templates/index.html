@@ -6,7 +6,7 @@
     <div class="posts">
         {% for post in posts.items %}
         <div class="post">
-            <a href="{{ url_for('post_full', post_id=post.id) }}">
+            <a class="post__title-link" href="{{ url_for('post_full', post_id=post.id) }}">
                 <h3 class="post__title">{{ post.title }}</h3>
             </a>
             <span class="post__info">{{ moment(post.timestamp).format('LLL') }} | {{ post.user.username }}</span>
