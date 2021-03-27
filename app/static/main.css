@@ -26,6 +26,9 @@ html, body {
     margin: 0;
     padding: 0;
 }
+h1, h2, h3 , h4 {
+    margin: 0;
+}
 .wrapper {
     box-sizing: border-box;
     margin: 0 auto;
@@ -123,12 +126,16 @@ html, body {
     margin: 60px 0;
 }
 .post__title {
-    margin: 0;
+    display: inline-block;
     padding-bottom: 10px;
     font-size: 28px;
     color: #000000;
 }
+.post__title:hover {
+    color: #4aa2b4;
+}
 .post__info {
+    display: block;
     font-style: italic;
     color: #a4afba;
 }
