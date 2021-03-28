@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Add post{% endblock %}
+{% block content %}
+<div class="wrapper">
+    {% include "header.html" %}
+    <form class="add-post-form" id="addpost_form" method="POST">
+        <label class="add-post-form__label" for="">Title</label>
+        {{ form.title(class="add-post-form__title") }}
+        <label class="add-post-form__label" for="">Text</label>
+        {{ form.body(class="add-post-form__body") }}
+        {{ form.submit(class="add-post-form__submit") }}
+    </form>
+</div>
+{% endblock %}

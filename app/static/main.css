@@ -123,6 +123,19 @@ h1, h2, h3 , h4 {
 .login__logout:hover {
     border-color: #000;
 }
+.new-post {
+    display: flex;
+}
+.new-post__link {
+    padding: 7px 12px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    color: #000;
+}
+.new-post__link:hover {
+    border-color: #a4afba;
+    color: #a4afba;;
+}
 .post {
     margin: 60px 0;
 }
@@ -131,20 +144,19 @@ h1, h2, h3 , h4 {
 }
 .post__title {
     display: inline-block;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     font-size: 28px;
     color: #000000;
 }
 .post__info {
     display: block;
+    margin-bottom: 10px;
     font-style: italic;
     color: #a4afba;
 }
-.post__text {
-    padding: 10px 0;
-}
 .post-stats {
     display: flex;
+    margin-top: 15px;
     list-style-type: none;
 }
 .post-stats__rating {
@@ -362,4 +374,33 @@ h1, h2, h3 , h4 {
 }
 .comments__text {
     padding: 5px;
+}
+.add-post-form {
+
+}
+.add-post-form__label {
+    display: inline-block;
+    margin: 20px 0;
+    font-size: 20px;
+}
+.add-post-form__title {
+    display: block;
+    height: 40px;
+    min-height: 40px;
+    min-width: 50%;
+    z-index: 0;
+    overflow: auto;
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 4px;
+    resize: vertical;
+}
+.add-post-form__submit {
+    margin-top: 20px;
+    border: 0;
+    padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #558cb7;
+    color: #fff;
+    cursor: pointer;
 }

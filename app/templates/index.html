@@ -3,14 +3,19 @@
 {% block content %}
 <div class="wrapper">
     {% include "header.html" %}
+    {% if current_user.is_authenticated %}
+    <div class="new-post">
+        <a href="{{ url_for('add_post') }}" class="new-post__link">Add post</a>
+    </div>
+    {% endif %}
     <div class="posts">
         {% for post in posts.items %}
         <div class="post">
             <a class="post__title-link" href="{{ url_for('post_full', post_id=post.id) }}">
-                <h3 class="post__title">{{ post.title }}</h3>
+                <h3 class="post__title">{{ post.title|safe }}</h3>
             </a>
             <span class="post__info">{{ moment(post.timestamp).format('LLL') }} | {{ post.user.username }}</span>
-            <p class="post__text">{{ post.content }}</p>
+            <p class="post__text">{{ post.content|safe }}</p>
             <ul class="post-stats">
                 <li class="post-stats__rating">
                     <svg class="icon-svg__rating-post post-stats__rating-icon"

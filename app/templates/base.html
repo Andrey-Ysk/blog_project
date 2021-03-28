@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="/static/normalize.css">
     <link rel="stylesheet" href="/static/main.css">
     {{ moment.include_jquery() }}
+    {{ ckeditor.load() }}
     {{ moment.include_moment() }}
-    {{ moment.locale("ru") }}
+    {{ moment.locale("gb") }}
     <script src="/static/main.js"></script>
     <title>{% block title %}{% endblock %}</title>
 </head>

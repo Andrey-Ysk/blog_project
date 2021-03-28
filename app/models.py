@@ -47,7 +47,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     title = db.Column(db.String(64))
-    rating = db.Column(db.Integer)
+    rating = db.Column(db.Integer, default=0)
     comments = db.relationship('Comment', backref='post')
     users = db.relationship('User', secondary='posts_rating', backref='post')
 

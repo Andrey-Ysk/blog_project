@@ -6,6 +6,7 @@ from sqlalchemy import MetaData
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
 from flask_moment import Moment
+from flask_ckeditor import CKEditor
 import os, config
 
 
@@ -21,6 +22,7 @@ naming_convention = {
 
 app = Flask(__name__)
 app.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig')
+app.config['CKEDITOR_PKG_TYPE'] = 'basic'
 
 
 db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
@@ -29,5 +31,6 @@ login_manager = LoginManager(app)
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'signin'
 moment = Moment(app)
+ckeditor = CKEditor(app)
 
 from . import views

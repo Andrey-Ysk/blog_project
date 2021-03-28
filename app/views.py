@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template, request, redirect, url_for, make_response, session, flash, jsonify
-from .forms import SignInForm, RegistrationForm, CommentForm
+from .forms import SignInForm, RegistrationForm, CommentForm, PostForm
 from .models import Role, User, Post, Comment, PostRating
 from flask_login import login_required, login_user, current_user, logout_user
 from app import db
@@ -10,7 +10,7 @@ from app import db
 @app.route('/<int:page>', methods=['GET'])
 def index(page):
     per_page = 10
-    posts = Post.query.paginate(page, per_page, error_out=False)
+    posts = Post.query.order_by(Post.id.desc()).paginate(page, per_page, error_out=False)
     return render_template('index.html', posts=posts)
 
 
@@ -144,6 +144,24 @@ def registration():
     form.repeat_password.data = ''
 
     return render_template('registration.html', form=form)
+
+
+@app.route('/add_post', methods=['GET', 'POST'])
+def add_post():
+    form = PostForm(request.form)
+
+    #TODO: validate data
+    if form.validate():
+        new_post = Post(content=form.body.data, user_id=current_user.id, title=form.title.data)
+        db.session.add(new_post)
+        db.session.commit()
+
+        return redirect(url_for('index'))
+
+    form.title.data = ''
+    form.body.data = ''
+
+    return render_template('add_post.html', form=form)
 
 
 @app.errorhandler(404)
