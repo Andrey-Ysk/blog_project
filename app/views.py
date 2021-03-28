@@ -3,6 +3,7 @@ from flask import render_template, request, redirect, url_for, make_response, se
 from .forms import SignInForm, RegistrationForm, CommentForm, PostForm
 from .models import Role, User, Post, Comment, PostRating
 from flask_login import login_required, login_user, current_user, logout_user
+from .email import send_email
 from app import db
 
 
@@ -82,12 +83,17 @@ def post_full_vote():
 @app.route('/signin', methods=['GET', 'POST'])
 def signin():
 
+    next_page = request.args.get('next')
     form = SignInForm(request.form)
 
     if form.validate():
         username = db.session.query(User).filter(User.username == form.username.data).first()
         if username and username.check_password(form.password.data):
             login_user(username)
+            #fix view confirm login_requred lost next parameter
+            if next_page:
+                return redirect(next_page)
+
             return redirect(url_for('index'))
 
         else:
@@ -136,6 +142,10 @@ def registration():
         db.session.add(new_user)
         db.session.commit()
 
+        token = new_user.generate_confirmation_token()
+        send_email(new_user.email, 'Confirm Your Account', 'auth/confirm', user=new_user, token=token)
+        flash('A confirmation email has been send to you by email')
+
         return redirect(url_for('index'))
 
     form.email.data = ''
@@ -146,7 +156,21 @@ def registration():
     return render_template('registration.html', form=form)
 
 
+@app.route('/confirm/<token>', methods=['GET', 'POST'])
+@login_required
+def confirm(token):
+    if current_user.confirmed:
+        return redirect(url_for('index'))
+    if current_user.confirm(token):
+        flash('You have confirm your account!')
+    else:
+        flash('The confirmation link is invalid or expired')
+
+    return redirect(url_for('index'))
+
+
 @app.route('/add_post', methods=['GET', 'POST'])
+@login_required
 def add_post():
     form = PostForm(request.form)
 

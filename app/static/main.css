@@ -136,6 +136,14 @@ h1, h2, h3 , h4 {
     border-color: #a4afba;
     color: #a4afba;;
 }
+.index-alert {
+    padding: 10px 0;
+    margin-top: 10px;
+    background-color: #d8d8d8;
+    font-size: 24px;
+    color: #a70000;
+    text-align: center;
+}
 .post {
     margin: 60px 0;
 }

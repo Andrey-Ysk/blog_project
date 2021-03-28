@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="/static/normalize.css">
+    <link rel="stylesheet" href="/static/main.css">
+    <title>Confirm email</title>
+</head>
+<body>
+    <h4>Hello {{ user.username }}</h4>
+
+    <p>To confirm your account please click on the following link:</p>
+
+     {{ url_for('confirm', token=token, _external=True) }}
+</body>
+</html>

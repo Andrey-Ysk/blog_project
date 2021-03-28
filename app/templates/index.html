@@ -3,11 +3,14 @@
 {% block content %}
 <div class="wrapper">
     {% include "header.html" %}
-    {% if current_user.is_authenticated %}
+    {% if current_user.is_authenticated and current_user.confirmed %}
     <div class="new-post">
         <a href="{{ url_for('add_post') }}" class="new-post__link">Add post</a>
     </div>
     {% endif %}
+    {% for message in get_flashed_messages() %}
+    <p class="index-alert">{{ message }}</p>
+    {% endfor %}
     <div class="posts">
         {% for post in posts.items %}
         <div class="post">

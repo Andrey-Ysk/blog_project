@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
 from flask_moment import Moment
 from flask_ckeditor import CKEditor
+from flask_mail import Mail
 import os, config
 
 
@@ -32,5 +33,6 @@ login_manager.session_protection = 'strong'
 login_manager.login_view = 'signin'
 moment = Moment(app)
 ckeditor = CKEditor(app)
+mail = Mail(app)
 
 from . import views
