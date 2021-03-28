@@ -1,5 +1,6 @@
 from wtforms import Form, StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
+from wtforms.fields.html5 import EmailField
 from wtforms.widgets import TextArea
 from flask_ckeditor import CKEditorField
 
@@ -11,7 +12,7 @@ class SignInForm(Form):
 
 
 class RegistrationForm(Form):
-    email = StringField('email', validators=[Email()])
+    email = EmailField('email', validators=[Email()])
     username = StringField('username', validators=[DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
     repeat_password = PasswordField('repeat_password', validators=[DataRequired()])
