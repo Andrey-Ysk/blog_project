@@ -21,7 +21,7 @@
                         </g>
                     </svg>
                 </button>
-                <span class="post-stats__rating-counter" id="rating-counter">{{ post.rating }}</span>
+                <span class="post-stats__rating-counter {{'post-stats__rating-counter_negative' if post.rating < 0}}" id="rating-counter">{{ post.rating }}</span>
                 <button id="rating_vote_down" class="post-stats__button post-stats__rating-vote-down">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                          viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;"
