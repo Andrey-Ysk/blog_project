@@ -106,7 +106,7 @@ def signin():
 
     #TODO: validate data
 
-    return render_template('signin.html', form=form)
+    return render_template('auth/signin.html', form=form)
 
 
 @main.route('/registration', methods=['GET', 'POST'])
@@ -153,7 +153,7 @@ def registration():
     form.password.data = ''
     form.repeat_password.data = ''
 
-    return render_template('registration.html', form=form)
+    return render_template('auth/registration.html', form=form)
 
 
 @main.route('/confirm/<token>', methods=['GET', 'POST'])
