@@ -2,4 +2,4 @@ Hello {{ user.username }}
 
 To confirm your account please click on the following link:
 
-{{ url_for('confirm', token=token, _external=True) }}
+{{ url_for('.confirm', token=token, _external=True) }}

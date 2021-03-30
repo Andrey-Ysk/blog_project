@@ -1,15 +1,12 @@
 from flask import Flask
-from flask_migrate import Migrate, MigrateCommand
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-from flask_script import Manager, Command, Shell
 from sqlalchemy import MetaData
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager
 from flask_moment import Moment
 from flask_ckeditor import CKEditor
 from flask_mail import Mail
-import os, config
-
+import os
 
 #sqlite migration fix
 naming_convention = {
@@ -30,9 +27,10 @@ db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate(app, db, render_as_batch=True)
 login_manager = LoginManager(app)
 login_manager.session_protection = 'strong'
-login_manager.login_view = 'signin'
+login_manager.login_view = 'main.signin'
 moment = Moment(app)
 ckeditor = CKEditor(app)
 mail = Mail(app)
 
-from . import views
+from .main import main as main_bp
+app.register_blueprint(main_bp)

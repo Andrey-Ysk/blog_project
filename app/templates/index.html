@@ -5,7 +5,7 @@
     {% include "header.html" %}
     {% if current_user.is_authenticated and current_user.confirmed %}
     <div class="new-post">
-        <a href="{{ url_for('add_post') }}" class="new-post__link">Add post</a>
+        <a href="{{ url_for('.add_post') }}" class="new-post__link">Add post</a>
     </div>
     {% endif %}
     {% for message in get_flashed_messages() %}
@@ -14,7 +14,7 @@
     <div class="posts">
         {% for post in posts.items %}
         <div class="post">
-            <a class="post__title-link" href="{{ url_for('post_full', post_id=post.id) }}">
+            <a class="post__title-link" href="{{ url_for('.post_full', post_id=post.id) }}">
                 <h3 class="post__title">{{ post.title|safe }}</h3>
             </a>
             <span class="post__info">{{ moment(post.timestamp).format('LLL') }} | {{ post.user.username }}</span>
@@ -38,7 +38,7 @@
                 </li>
                 <li class="post-stats__comment">
                     <a class="post-stats__comment-button"
-                       href="{{ url_for('post_full', post_id=post.id) + '#comments'}}">
+                       href="{{ url_for('.post_full', post_id=post.id) + '#comments'}}">
                         <svg class="icon-svg__comment-button post-stats__comment-icon" height="682pt"
                              viewBox="-21 -47 682.66669 682" width="682pt"
                              xmlns="http://www.w3.org/2000/svg">
@@ -57,8 +57,8 @@
     </div>
     <nav>
         <ul class="post-pagination">
-            <li class="post-pagination__item"><a class="post-pagination__link {{'post-pagination__link_disabled' if not posts.has_prev}}" href="{{ url_for('index', page=posts.prev_num) }}">Prev</a></li>
-            <li class="post-pagination__item"><a class="post-pagination__link {{'post-pagination__link_disabled' if not posts.has_next}}" href="{{ url_for('index', page=posts.next_num) }}">Next</a></li>
+            <li class="post-pagination__item"><a class="post-pagination__link {{'post-pagination__link_disabled' if not posts.has_prev}}" href="{{ url_for('.index', page=posts.prev_num) }}">Prev</a></li>
+            <li class="post-pagination__item"><a class="post-pagination__link {{'post-pagination__link_disabled' if not posts.has_next}}" href="{{ url_for('.index', page=posts.next_num) }}">Next</a></li>
         </ul>
     </nav>
 </div>

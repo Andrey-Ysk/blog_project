@@ -1,5 +1,5 @@
 <div class="header">
-    <a class="header__logo" href="{{ url_for('index') }}">BLOG</a>
+    <a class="header__logo" href="{{ url_for('.index') }}">BLOG</a>
 </div>
 <div class="menu-bar">
     <div class="search">
@@ -27,10 +27,10 @@
     <div class="login">
         {% if current_user.is_authenticated %}
         <span class="login__username">{{ current_user.username }}</span>
-        <a href="{{ url_for('logout') }}" class="login__button login__logout">Log-out</a>
+        <a href="{{ url_for('.logout') }}" class="login__button login__logout">Log-out</a>
         {% else %}
-        <a href="{{ url_for('signin') }}" class="login__button login__sign-in">Sign-In</a>
-        <a href="{{ url_for('registration') }}" class="login__button login__registration">Registration</a>
+        <a href="{{ url_for('.signin') }}" class="login__button login__sign-in">Sign-In</a>
+        <a href="{{ url_for('.registration') }}" class="login__button login__registration">Registration</a>
         {% endif %}
     </div>
 </div>
