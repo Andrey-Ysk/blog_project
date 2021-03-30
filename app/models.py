@@ -28,7 +28,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(64), unique=True, index=True)
     email = db.Column(db.String(64), unique=True)
     password_hash = db.Column(db.String(128))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), default=2)
     confirmed = db.Column(db.Boolean, default=False)
     posts = db.relationship('Post', backref='user')
     comments = db.relationship('Comment', backref='user')
