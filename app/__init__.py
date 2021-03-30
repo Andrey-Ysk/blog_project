@@ -6,7 +6,7 @@ from flask_login import LoginManager
 from flask_moment import Moment
 from flask_ckeditor import CKEditor
 from flask_mail import Mail
-import os
+
 
 #sqlite migration fix
 naming_convention = {
@@ -18,19 +18,30 @@ naming_convention = {
 }
 
 
-app = Flask(__name__)
-app.config.from_object(os.environ.get('FLASK_ENV') or 'config.DevelopementConfig')
-app.config['CKEDITOR_PKG_TYPE'] = 'basic'
 
-
-db = SQLAlchemy(app=app, metadata=MetaData(naming_convention=naming_convention))
-migrate = Migrate(app, db, render_as_batch=True)
-login_manager = LoginManager(app)
+db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
+migrate = Migrate(render_as_batch=True)
+login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'main.signin'
-moment = Moment(app)
-ckeditor = CKEditor(app)
-mail = Mail(app)
+moment = Moment()
+ckeditor = CKEditor()
+mail = Mail()
 
-from .main import main as main_bp
-app.register_blueprint(main_bp)
+
+def create_app(config):
+    app = Flask(__name__)
+    app.config.from_object(config)
+    app.config['CKEDITOR_PKG_TYPE'] = 'basic'
+
+    db.init_app(app)
+    migrate.init_app(app, db)
+    login_manager.init_app(app)
+    moment.init_app(app)
+    ckeditor.init_app(app)
+    mail.init_app(app)
+
+    from .main import main as main_bp
+    app.register_blueprint(main_bp)
+
+    return app

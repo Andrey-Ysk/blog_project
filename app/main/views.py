@@ -1,8 +1,8 @@
 from app import db
 from . import main
-from flask import render_template, request, redirect, url_for, make_response, session, flash, jsonify
+from flask import render_template, request, redirect, url_for, session, flash, jsonify
 from .forms import SignInForm, RegistrationForm, CommentForm, PostForm
-from app.models import Role, User, Post, Comment, PostRating
+from app.models import User, Post, Comment, PostRating
 from flask_login import login_required, login_user, current_user, logout_user
 from app.email import send_email
 
