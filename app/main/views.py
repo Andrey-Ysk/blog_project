@@ -172,6 +172,9 @@ def confirm(token):
 @main.route('/add_post', methods=['GET', 'POST'])
 @login_required
 def add_post():
+    if current_user.confirmed == False:
+        return redirect(url_for('.index'))
+
     form = PostForm(request.form)
 
     #TODO: validate data
