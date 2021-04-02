@@ -56,6 +56,7 @@ class User(db.Model, UserMixin):
             return False
         self.confirmed = True
         db.session.add(self)
+        db.session.commit()
         return True
 
 
