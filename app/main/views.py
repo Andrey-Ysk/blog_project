@@ -1,7 +1,7 @@
 from app import db
 from . import main
-from flask import render_template, request, redirect, url_for, session, flash, jsonify
 from .forms import SignInForm, RegistrationForm, CommentForm, PostForm
+from flask import render_template, request, redirect, url_for, session, flash, jsonify, current_app
 from app.models import User, Post, Comment, PostRating
 from flask_login import login_required, login_user, current_user, logout_user
 from app.email import send_email
@@ -10,25 +10,18 @@ from app.email import send_email
 @main.route('/', methods=['GET'], defaults={"page": 1})
 @main.route('/<int:page>', methods=['GET'])
 def index(page):
-    per_page = 10
-    posts = Post.query.order_by(Post.id.desc()).paginate(page, per_page, error_out=False)
+    per_page = current_app.config['POST_PER_PAGE']
+    posts = Post.query.order_by(Post.id.desc()).paginate(page, per_page, error_out=True)
     return render_template('index.html', posts=posts)
-
-
-@main.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('.index'))
 
 
 @main.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post_full(post_id):
     session['post_id'] = post_id
-    post = Post.query.filter(Post.id == post_id).first()
+    post = Post.query.get_or_404(post_id)
     comments_list = Comment.query.filter_by(post_id=post_id).all()
     form = CommentForm(request.form)
-    #TODO: validate data
+    # TODO: validate data
     if form.validate():
         new_comment = Comment(user_id=current_user.id, post_id=post_id, text=form.comment_text.data)
         db.session.add(new_comment)
@@ -42,40 +35,58 @@ def post_full(post_id):
     return render_template('post_full.html', form=form, post=post, comments_list=comments_list)
 
 
+@main.route('/add_post', methods=['GET', 'POST'])
+@login_required
+def add_post():
+    if not current_user.confirmed:
+        return redirect(url_for('.index'))
+
+    form = PostForm(request.form)
+
+    # TODO: validate data
+    if form.validate():
+        new_post = Post(content=form.body.data, user_id=current_user.id, title=form.title.data)
+        db.session.add(new_post)
+        db.session.commit()
+
+        return redirect(url_for('.index'))
+
+    form.title.data = ''
+    form.body.data = ''
+
+    return render_template('add_post.html', form=form)
+
+
 @main.route('/post_full_vote')
 def post_full_vote():
 
     if not current_user.is_authenticated:
-        return jsonify(alert = 'You need login for rate this post')
+        return jsonify(alert='You need login for rate this post')
 
     post_id = session.get('post_id')
     user_vote_exist = db.session.query(PostRating).filter(PostRating.c.user_id == current_user.id,
                                                           PostRating.c.post_id == post_id).all()
     vote = request.args.get('vote')
-    current_post_query = Post.query.filter(Post.id == post_id)
-    current_post = current_post_query.first()
-    user = User.query.get(current_user.id)
+    current_post = Post.query.get(post_id)
 
     if not user_vote_exist:
 
         if vote == 'up':
-            current_post_query.update({'rating': Post.rating + 1})
-            current_post.users.append(user)
+            current_post.rating += 1
+            current_post.users.append(current_user)
             db.session.add(current_post)
             db.session.commit()
-            return jsonify(rating = current_post.rating)
+            return jsonify(rating=current_post.rating)
 
         if vote == 'down':
-            current_post_query.update({'rating': Post.rating - 1})
-            current_post.users.append(user)
+            current_post.rating -= 1
+            current_post.users.append(current_user)
             db.session.add(current_post)
             db.session.commit()
-            return jsonify(rating = current_post.rating)
-
-
+            return jsonify(rating=current_post.rating)
 
     else:
-        return jsonify(alert = 'You already rate this post')
+        return jsonify(alert='You already rate this post')
 
 
 @main.route('/signin', methods=['GET', 'POST'])
@@ -88,7 +99,7 @@ def signin():
         username = db.session.query(User).filter(User.username == form.username.data).first()
         if username and username.check_password(form.password.data):
             login_user(username)
-            #fix view confirm login_requred lost next parameter
+            # fix view confirm login_requred lost next parameter
             if next_page:
                 return redirect(next_page)
 
@@ -102,9 +113,16 @@ def signin():
     form.username.data = ''
     form.password.data = ''
 
-    #TODO: validate data
+    # TODO: validate data
 
     return render_template('auth/signin.html', form=form)
+
+
+@main.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('.index'))
 
 
 @main.route('/registration', methods=['GET', 'POST'])
@@ -135,7 +153,7 @@ def registration():
             flash('This username already taken')
             return redirect(url_for('.registration'))
 
-        new_user = User(email=form.email.data, username=form.username.data)
+        new_user = User(username=form.username.data, email=form.email.data)
         new_user.set_password(form.password.data)
         db.session.add(new_user)
         db.session.commit()
@@ -165,28 +183,6 @@ def confirm(token):
         flash('The confirmation link is invalid or expired')
 
     return redirect(url_for('.index'))
-
-
-@main.route('/add_post', methods=['GET', 'POST'])
-@login_required
-def add_post():
-    if current_user.confirmed == False:
-        return redirect(url_for('.index'))
-
-    form = PostForm(request.form)
-
-    #TODO: validate data
-    if form.validate():
-        new_post = Post(content=form.body.data, user_id=current_user.id, title=form.title.data)
-        db.session.add(new_post)
-        db.session.commit()
-
-        return redirect(url_for('.index'))
-
-    form.title.data = ''
-    form.body.data = ''
-
-    return render_template('add_post.html', form=form)
 
 
 @main.errorhandler(404)

@@ -15,6 +15,9 @@ class BaseConfig:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     MAIL_DEFAULT_SENDER = MAIL_USERNAME
 
+    CKEDITOR_PKG_TYPE = 'basic'
+    POST_PER_PAGE = os.environ.get('POST_PER_PAGE') or 6
+
 
 class DevelopementConfig(BaseConfig):
     DEBUG = True

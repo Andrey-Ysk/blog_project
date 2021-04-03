@@ -7,7 +7,7 @@ app = create_app('config.TestingConfig')
 
 
 def login(client, username, password):
-    return client.post('/signin', data = dict(
+    return client.post('/signin', data=dict(
         username=username,
         password=password
     ), follow_redirects=True)
@@ -19,15 +19,9 @@ def logout(client):
 
 @pytest.fixture(scope='session')
 def new_user():
-    user = User(username='user_test24', email='testuser21@gmail.com', confirmed=True)
+    user = User(username='user_test24', email='testuser21@gmail.com')
     user.set_password('testpassword')
     return user
-
-
-@pytest.fixture(scope='session')
-def new_post():
-    new_post = Post(user_id=1, content='Test text', title='Title text')
-    return new_post
 
 
 @pytest.fixture(scope='session')

@@ -5,14 +5,14 @@ from app.models import User
 def test_registration_new_user(test_client):
     """
     GIVEN: Flask app with test conf
-    WHEN: /registration page registration new user and confirm
+    WHEN: /registration page, registration new user and confirm
     THEN: user registered, user login, user confirmed
     """
     response = test_client.post('/registration', data=dict(
-        username = 'Test4',
-        email = 'testemailTest4@test4.com',
-        password = 12345678,
-        repeat_password = 12345678
+        username='Test4',
+        email='testemailTest4@test4.com',
+        password=12345678,
+        repeat_password=12345678
     ))
     assert response.status_code == 302
 

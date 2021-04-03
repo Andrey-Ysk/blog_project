@@ -14,17 +14,6 @@ def test_index_page(test_client):
     assert b"Registration" in response.data
 
 
-def test_index_page_post(test_client):
-    """
-    GIVEN: Flask app with test conf
-    WHEN: '/' page requested POST
-    THEN: check '405' status response return
-    """
-    response = test_client.post('/')
-    assert response.status_code == 405
-    assert b"BLOG" not in response.data
-
-
 def test_signin_page(test_client):
     """
     GIVEN: Flask app with test conf
@@ -121,7 +110,7 @@ def test_post_vote(test_client):
     WHEN: '/post_full' rating section, valid rating count and message - login "vote up"/"vote up" after vote/logout vote
     THEN: vote == 1 without message/error message "already vote"/error message "need login"
     """
-    rv = login(test_client, app.config['USERNAME'], app.config['PASSWORD'])
+    login(test_client, app.config['USERNAME'], app.config['PASSWORD'])
     res = test_client.get('/post_full_vote', query_string=dict(vote='up'))
     assert b"\"rating\": 1" in res.data
 

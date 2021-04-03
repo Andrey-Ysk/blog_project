@@ -17,11 +17,6 @@ class Role(db.Model):
         return '<Role %r>' % self.name
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return db.session.query(User).get(user_id)
-
-
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -58,6 +53,11 @@ class User(db.Model, UserMixin):
         db.session.add(self)
         db.session.commit()
         return True
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.query(User).get(user_id)
 
 
 class Post(db.Model):
