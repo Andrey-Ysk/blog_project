@@ -34,7 +34,7 @@ Create and activate a virtual environment inside your project directory:
 
 `python -m venv venv`
 
-`source env/bin/activate`
+`source venv/bin/activate`
 
 Install the requirements:
 
