@@ -20,11 +20,11 @@ class RegistrationForm(Form):
 
 
 class CommentForm(Form):
-    comment_text = StringField(widget=TextArea(), validators=[DataRequired(), Length(max=256)])
+    comment_text = StringField(widget=TextArea(), validators=[DataRequired(), Length(max=1024)])
     submit = SubmitField('Send')
 
 
 class PostForm(Form):
-    title = StringField('Title', widget=TextArea(), validators=[DataRequired(), Length(max=64)])
-    body = CKEditorField('Body', validators=[DataRequired(), Length(max=4096)])
+    title = StringField('Title', widget=TextArea(), validators=[DataRequired(), Length(max=512)])
+    body = CKEditorField('Body', validators=[DataRequired(), Length(max=24000)])
     submit = SubmitField('Submit')
