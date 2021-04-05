@@ -30,6 +30,8 @@ Clone this repo:
 
 Create and activate a virtual environment inside your project directory:
 
+`cd blog_project`
+
 `python -m venv venv`
 
 `source env/bin/activate`
