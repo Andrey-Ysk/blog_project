@@ -31,8 +31,8 @@ class TestingConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.environ.get('TESTING_DATABASE_URI') or \
                               'sqlite:///' + os.path.join(app_dir, 'test-data.sqlite')
 
-    USERNAME = os.environ.get('USERNAME')
-    PASSWORD = os.environ.get('PASSWORD')
+    USERNAME = 'Test1'
+    PASSWORD = '12345678'
     WTF_CSRF_ENABLED = False
 
 

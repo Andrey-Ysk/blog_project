@@ -5,7 +5,7 @@ from flask_migrate import MigrateCommand
 import os
 
 
-app = create_app(os.getenv('FLASK_ENV') or 'config.DevelopementConfig')
+app = create_app(os.getenv('FLASK_ENV') or 'config.ProductionConfig')
 manager = Manager(app)
 
 
