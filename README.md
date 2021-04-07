@@ -32,7 +32,7 @@ Create and activate a virtual environment inside your project directory:
 
 `cd blog_project`
 
-`python -m venv venv`
+`python3 -m venv venv`
 
 `source venv/bin/activate`
 
