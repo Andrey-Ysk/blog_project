@@ -1,13 +1,6 @@
 # Blog
 Simple blog written on Flask
 
-# Demo:
-You can try it [HERE](https://ksps.space/)
-
-Login: `Test_1`
-
-Password: `12345678`
-
 # Technology
 Python
 
